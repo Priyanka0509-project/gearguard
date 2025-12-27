@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GearGuard | Assign Jobs</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="../css/auth.css">
+
+  <style>
+    .page-header h4 {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .page-header p {
+      color: #e5e7eb;
+      font-size: 0.95rem;
+    }
+
+    .job-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .busy {
+      color: #dc3545;
+      font-weight: 600;
+    }
+
+    .available {
+      color: #198754;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- MANAGER NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" href="manager-dashboard.html">GearGuard</a>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="manager-dashboard.html">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link active" href="#">Assign Jobs</a></li>
+      <li class="nav-item"><a class="nav-link" href="manager-calendar.html">Maintenance Calendar</a></li>
+      <li class="nav-item"><a class="nav-link" href="manager-profile.html">Profile</a></li>
+      <li class="nav-item"><a class="nav-link text-danger" href="../auth/login.html">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container-fluid px-4 mt-4">
+
+  <div class="page-header mb-4">
+    <h4>Assign Maintenance Jobs</h4>
+    <p>Assign jobs to teams and available technicians</p>
+  </div>
+
+  <!-- JOB CARD -->
+  <div class="row">
+    <div class="col-lg-6">
+
+      <div class="job-card">
+
+        <h6>Air Conditioner</h6>
+        <p>
+          <strong>Model:</strong> LG DualCool 2023<br>
+          <strong>Issue:</strong> Cooling not effective<br>
+          <strong>Scheduled Date:</strong> <span id="jobDate">2025-10-18</span><br>
+          <strong>Status:</strong> <span class="badge bg-secondary">Unassigned</span>
+        </p>
+
+        <!-- TEAM -->
+        <div class="mb-2">
+          <label class="form-label">Select Team</label>
+          <select class="form-select" id="teamSelect" onchange="loadMembers()">
+            <option value="">Choose team</option>
+            <option value="HVAC">HVAC Team</option>
+            <option value="Electrical">Electrical Team</option>
+          </select>
+        </div>
+
+        <!-- MEMBER -->
+        <div class="mb-2">
+          <label class="form-label">Select Team Member</label>
+          <select class="form-select" id="memberSelect" disabled>
+            <option value="">Select team first</option>
+          </select>
+          <small id="availabilityText"></small>
+        </div>
+
+        <button class="btn btn-primary mt-3" onclick="assignJob()">
+          Assign Job
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /***************
+   * MOCK DATA
+   ***************/
+  const teamMembers = {
+    HVAC: ["Rahul Sharma", "Amit Verma"],
+    Electrical: ["Priya Singh", "Neha Patel"]
+  };
+
+  // Existing jobs (date-wise)
+  const busySchedule = {
+    "Rahul Sharma": ["2025-10-18"],
+    "Priya Singh": ["2025-10-18"]
+  };
+
+  function loadMembers() {
+    const team = document.getElementById("teamSelect").value;
+    const memberSelect = document.getElementById("memberSelect");
+    const availabilityText = document.getElementById("availabilityText");
+
+    memberSelect.innerHTML = "";
+    availabilityText.innerText = "";
+    memberSelect.disabled = true;
+
+    if (!team) return;
+
+    teamMembers[team].forEach(member => {
+      const option = document.createElement("option");
+      option.value = member;
+      option.text = member;
+      memberSelect.appendChild(option);
+    });
+
+    memberSelect.disabled = false;
+    memberSelect.onchange = checkAvailability;
+  }
+
+  function checkAvailability() {
+    const member = document.getElementById("memberSelect").value;
+    const date = document.getElementById("jobDate").innerText;
+    const availabilityText = document.getElementById("availabilityText");
+
+    if (busySchedule[member]?.includes(date)) {
+      availabilityText.innerHTML = "<span class='busy'>Busy on selected date</span>";
+      availabilityText.dataset.available = "false";
+    } else {
+      availabilityText.innerHTML = "<span class='available'>Available</span>";
+      availabilityText.dataset.available = "true";
+    }
+  }
+
+  function assignJob() {
+    const availability = document.getElementById("availabilityText").dataset.available;
+
+    if (availability === "false") {
+      alert("Selected team member is busy on this date.");
+      return;
+    }
+
+    alert("Job successfully assigned to technician!");
+  }
+</script>
+
+</body>
+</html>

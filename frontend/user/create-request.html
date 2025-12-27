@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GearGuard | Create Maintenance Request</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="../css/auth.css">
+
+  <style>
+    .form-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Page header fix */
+    .page-header h4 {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .page-header p {
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" href="user-dashboard.html">GearGuard</a>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="user-dashboard.html">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="my-equipment.html">My Equipment</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Create Request</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="my-requests.html">My Requests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="add-new-equip.html">Add New Equipment</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../common/maintenance-calendar.html">
+          Maintenance Calendar
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="profile.html">Profile</a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link text-danger" href="../auth/login.html">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container-fluid px-4 mt-4">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header mb-4">
+    <h4>Create Maintenance Request</h4>
+    <p>Report an issue or request maintenance service</p>
+  </div>
+
+  <!-- FORM -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="form-card">
+
+        <form id="requestForm">
+
+          <!-- Device Name -->
+          <div class="mb-3">
+            <label class="form-label">Device / Equipment Name</label>
+            <input type="text" class="form-control"
+                   placeholder="e.g. Air Conditioner"
+                   required>
+          </div>
+
+          <!-- Model -->
+          <div class="mb-3">
+            <label class="form-label">Model Name / Number</label>
+            <input type="text" class="form-control"
+                   placeholder="e.g. LG DualCool 2023"
+                   required>
+          </div>
+
+          <!-- Issue Summary -->
+          <div class="mb-3">
+            <label class="form-label">Issue Summary</label>
+            <input type="text" class="form-control"
+                   placeholder="Short description of the issue"
+                   required>
+          </div>
+
+          <!-- Description -->
+          <div class="mb-3">
+            <label class="form-label">Detailed Description</label>
+            <textarea class="form-control"
+                      rows="4"
+                      placeholder="Describe the issue in detail"
+                      required></textarea>
+          </div>
+
+          <!-- Submit -->
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary py-2">
+              Submit Request
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- JS -->
+<script>
+  document.getElementById("requestForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Maintenance request submitted successfully!");
+  });
+</script>
+
+</body>
+</html>
