@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GearGuard | Profile</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="../css/auth.css">
+
+  <style>
+    .profile-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Page header fix */
+    .page-header h4 {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .page-header p {
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .profile-item {
+      margin-bottom: 16px;
+    }
+
+    .profile-label {
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .profile-value {
+      color: #4b5563;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" href="user-dashboard.html">GearGuard</a>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="user-dashboard.html">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="my-equipment.html">My Equipment</a></li>
+      <li class="nav-item"><a class="nav-link" href="create-request.html">Create Request</a></li>
+      <li class="nav-item"><a class="nav-link" href="my-requests.html">My Requests</a></li>
+      <li class="nav-item"><a class="nav-link" href="add-new-equip.html">Add New Equipment</a></li>
+      <li class="nav-item">
+        <a class="nav-link" href="../common/maintenance-calendar.html">
+          Maintenance Calendar
+        </a>
+      </li>
+      <li class="nav-item"><a class="nav-link active" href="#">Profile</a></li>
+      <li class="nav-item"><a class="nav-link text-danger" href="../auth/login.html">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container-fluid px-4 mt-4">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header mb-4">
+    <h4>My Profile</h4>
+    <p>View your personal and account information</p>
+  </div>
+
+  <!-- PROFILE CARD -->
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+
+      <div class="profile-card">
+
+        <div class="profile-item">
+          <div class="profile-label">Full Name</div>
+          <div class="profile-value">Devanshi Patel</div>
+        </div>
+
+        <div class="profile-item">
+          <div class="profile-label">Email</div>
+          <div class="profile-value">devanshi@gmail.com</div>
+        </div>
+
+        <div class="profile-item">
+          <div class="profile-label">Phone Number</div>
+          <div class="profile-value">+91 1234567890</div>
+        </div>
+
+        <div class="profile-item">
+          <div class="profile-label">Role</div>
+          <div class="profile-value">User</div>
+        </div>
+
+        <div class="profile-item">
+          <div class="profile-label">Address</div>
+          <div class="profile-value">
+            12, MG Road<br>
+            Ahmedabad, Gujarat
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

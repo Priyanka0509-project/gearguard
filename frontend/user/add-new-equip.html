@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GearGuard | Add New Equipment</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="../css/auth.css">
+
+  <style>
+    .form-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .page-header h4 {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .page-header p {
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" href="user-dashboard.html">GearGuard</a>
+
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item"><a class="nav-link" href="user-dashboard.html">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="my-equipment.html">My Equipment</a></li>
+      <li class="nav-item"><a class="nav-link" href="create-request.html">Create Request</a></li>
+      <li class="nav-item"><a class="nav-link" href="my-requests.html">My Requests</a></li>
+      <li class="nav-item"><a class="nav-link active" href="#">Add New Equipment</a></li>
+      <li class="nav-item">
+        <a class="nav-link" href="../common/maintenance-calendar.html">
+          Maintenance Calendar
+        </a>
+      </li>
+      <li class="nav-item"><a class="nav-link" href="profile.html">Profile</a></li>
+      <li class="nav-item"><a class="nav-link text-danger" href="../auth/login.html">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container-fluid px-4 mt-4">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header mb-4">
+    <h4>Add New Equipment</h4>
+    <p>Register a new device and configure maintenance schedule</p>
+  </div>
+
+  <!-- FORM -->
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="form-card">
+
+        <form id="equipmentForm">
+
+          <!-- Device Name -->
+          <div class="mb-3">
+            <label class="form-label">Device / Equipment Name</label>
+            <input type="text" class="form-control"
+                   placeholder="e.g. Generator"
+                   required>
+          </div>
+
+          <!-- Model -->
+          <div class="mb-3">
+            <label class="form-label">Model Name</label>
+            <input type="text" class="form-control"
+                   placeholder="e.g. Kirloskar 550"
+                   required>
+          </div>
+
+          <!-- Serial Number -->
+          <div class="mb-3">
+            <label class="form-label">Serial Number</label>
+            <input type="text" class="form-control"
+                   placeholder="e.g. KIR-550-AX92"
+                   required>
+          </div>
+
+          <!-- Purchase Date -->
+          <div class="mb-3">
+            <label class="form-label">Purchase Date</label>
+            <input type="date" class="form-control" required>
+          </div>
+
+          <!-- Maintenance Interval -->
+          <div class="mb-3">
+            <label class="form-label">Regular Maintenance Interval (Days)</label>
+            <input type="number" class="form-control"
+                   placeholder="e.g. 30"
+                   min="1"
+                   required>
+            <small class="text-muted">
+              System will automatically create maintenance requests at this interval
+            </small>
+          </div>
+
+          <!-- Submit -->
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary py-2">
+              Add Equipment
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- JS -->
+<script src="../common/api.js"></script>
+
+<script>
+  document.getElementById("addEquipForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const data = {
+      name: document.getElementById("equipName").value,
+      model: document.getElementById("model").value,
+      category: document.getElementById("category").value,
+      purchaseDate: document.getElementById("purchaseDate").value,
+      intervalDays: document.getElementById("interval").value
+    };
+
+    try {
+      await apiCall("/api/user/equipment", "POST", data);
+      alert("Equipment added successfully!");
+      this.reset();
+    } catch (err) {
+      alert(err.message);
+    }
+  });
+</script>
+
+
+</body>
+</html>

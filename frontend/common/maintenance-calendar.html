@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GearGuard | Maintenance Calendar</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="../css/auth.css">
+
+  <style>
+    .calendar-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .page-header h4 {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .page-header p {
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR WILL BE INJECTED HERE -->
+<div id="navbarContainer"></div>
+
+<script>
+  /********************
+   * GET ROLE (ONCE)
+   ********************/
+  let ROLE = localStorage.getItem("role");
+  if (!ROLE) ROLE = "USER"; // fallback
+
+  const navbarContainer = document.getElementById("navbarContainer");
+
+  if (ROLE === "USER") {
+    navbarContainer.innerHTML = `
+      <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid px-4">
+          <a class="navbar-brand fw-bold" href="../user/user-dashboard.html">GearGuard</a>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="../user/user-dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="../user/my-equipment.html">My Equipment</a></li>
+            <li class="nav-item"><a class="nav-link" href="../user/create-request.html">Create Request</a></li>
+            <li class="nav-item"><a class="nav-link" href="../user/my-requests.html">My Requests</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">Maintenance Calendar</a></li>
+            <li class="nav-item"><a class="nav-link" href="../user/profile.html">Profile</a></li>
+            <li class="nav-item"><a class="nav-link text-danger" href="../auth/login.html">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    `;
+  }
+
+  if (ROLE === "TEAM") {
+    navbarContainer.innerHTML = `
+      <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid px-4">
+          <a class="navbar-brand fw-bold" href="../team/team-dashboard.html">GearGuard</a>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="../team/team-dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="../team/assigned-jobs.html">Assigned Jobs</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#">Maintenance Calendar</a></li>
+            <li class="nav-item"><a class="nav-link" href="../team/team-profile.html">Profile</a></li>
+            <li class="nav-item"><a class="nav-link text-danger" href="../auth/login.html">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
+    `;
+  }
+</script>
+
+<!-- MAIN CONTENT -->
+<div class="container-fluid px-4 mt-4">
+
+  <div class="page-header mb-4">
+    <h4>Maintenance Calendar</h4>
+    <p id="calendarSubtitle"></p>
+  </div>
+
+  <div class="calendar-card">
+    <div id="calendar"></div>
+  </div>
+
+</div>
+
+<!-- FullCalendar -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<script>
+  const subtitle = document.getElementById("calendarSubtitle");
+  let events = [];
+
+  if (ROLE === "USER") {
+    subtitle.innerText = "Your equipment maintenance schedule";
+    events = [
+      { title: "AC Maintenance", start: "2025-10-05" },
+      { title: "Generator Service", start: "2025-10-20" }
+    ];
+  }
+
+  if (ROLE === "TEAM") {
+    subtitle.innerText = "Your assigned maintenance tasks";
+    events = [
+      { title: "AC - LG DualCool (User A)", start: "2025-10-05" },
+      { title: "Printer - HP LaserJet (User B)", start: "2025-10-07" }
+    ];
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const calendar = new FullCalendar.Calendar(
+      document.getElementById("calendar"),
+      {
+        initialView: "dayGridMonth",
+        height: 600,
+        events: events,
+        eventClick: (info) => alert(info.event.title)
+      }
+    );
+    calendar.render();
+  });
+</script>
+
+</body>
+</html>
